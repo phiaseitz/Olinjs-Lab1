@@ -25,11 +25,15 @@
 		<div ng-controller="AppCtrl"  class="md-red">
 
 			<h1>Classes At Olin</h1>
-
+			<!-- This is the div that contains everything. This has layout row because we want the nav var and the content to be side by side-->
 			<div id="content" layout="row">
-				<!-- Topic Nav Bar -->
+				<!-- Topic Nav Bar. This is where the sidebar/search/add new page stuff goes. -->
+
 				<div id="topic-sidebar">
+					<!-- This is the sidebar where we can navigate. There is a search bar, a add new topic button, and a list of all the topics. 
+					The angular material list makes this super easy. We want this in a column layout.-->
 					<md-list layout="column">
+						<!-- The first item is the search bar, or autocomlete. Here, we set the the selected item to the selected topic. We also set the search text to our scope variable. To get the topics, we do a very naive search, to see if the search text is a substring of any of the topic titles. When the selected item changes (someone has selected something different) we get that topic. -->
 						<md-list-item>
 							<md-autocomplete 
 								md-selected-item="search.selectedTopic" 
@@ -39,23 +43,29 @@
 								md-selected-item-change = "getTopic(topic, 'search')"
 								md-floating-label="Search for a class..."
 							>
+							<!-- This is a template for how the search results look. Here, we display the topic title in the search results. -->
 							  <md-item-template>
-							    <md-subheader md-highlight-text="searchText">{{topic.title}}</md-subheader>
+							    <md-subheader>{{topic.title}}</md-subheader>
 							  </md-item-template>
+							 <!-- If the item is not found, we just display "No matches found." -->
 							  <md-not-found>
 							    No matches found.
 							  </md-not-found>
 							</md-autocomplete>
 						</md-list-item>
+
+						<!-- This is the create new todo navbar element. On click, we show he add topic form -->
 						<md-list-item>
 							<div class="md-list-item-text create-new-todo " ng-click="showAddTopicForm()">
 								<md-subheader class=md-primary>Create a new class page</md-subheader>
 							</div>  
 						</md-list-item>
 						<md-divider ></md-divider>
+						<!-- Loop over all the topics and create a clickable div that gets the topic page when they click on that topic -->
 						<div class = "classes-list" ng-repeat="topic in topicslist">
 							<md-list-item >
 								<div class="md-list-item-text" ng-click="getTopic(topic,'navbar')" >
+									<!-- Also, if the current topic id (we're viewing that topic), we assign the md-accent class which color at topick element differently from the rest of them. -->
 									<md-subheader ng-class="{'md-accent': topic._id == currentTopic._id}">{{topic.title}}</md-subheader>
 								</div>
 							</md-list-item>
@@ -64,23 +74,29 @@
 						
 					</md-list>
 				</div>
-
+				<!-- This is the div that contains the topic content -->
 				<div flex id="topic-content">
+					<!-- If we're currently looking at a topic -->
 					<div id="page-content" class="existing-topic" ng-if="currentTopic._id">
+						<!-- Create a set of view and edit tabs, that users can use while interacting with an existing topic -->
 						<md-tabs md-dynamic-height md-border-bottom>
+							<!-- The view tab... just display the title and text -->
 							<md-tab label="View">
 								<md-content class="md-padding">
 									<h1 class="topic-title" >{{currentTopic.title}}</h1>
 									<p class="topic-content" >{{currentTopic.content}}</p>
 							</md-tab>
+							<!-- The edit tab is a little more complicated -->
 							<md-tab label="Edit">
 								<md-content class="md-padding">
 									<form ng-submit="updateTopic()">
 										<div class="form-group" layout="column">
+											<!-- The title input -->
 											<md-input-container>
 										        <label>Class Title</label>
 										        <input type="text" class="topic-title" value=currentTopic.title ng-model="currentTopic.title" required>
 										    </md-input-container>
+										    <!-- The content input. This is jumpy with one line of text, but I'm not sure how to fix it. -->
 								      		<md-input-container>
 								      			<label>Class Content</label>
 								      			<textarea elastic class="topic-content" value=currentTopic.content ng-model="currentTopic.content" required> </textarea>
@@ -93,21 +109,26 @@
 						</md-tabs>
 					</div>
 
+					<!-- If we're creating a topic, the form looks pretty much exactly the same, except instead of view and preview -->
 					<div flex id="page-content" class="create-topic" ng-if="creatingTopic">
 						<md-tabs md-selected="1" md-dynamic-height md-border-bottom>
+							<!-- preview- display title and content -->
 							<md-tab label="Preview">
 								<md-content class="md-padding">
 									<h1 class="topic-title">{{formData.title}}</h1>
 									<p class="topic-content">{{formData.content}}</p>
 							</md-tab>
+							<!-- Edit have a form to edit. On submit this creates a topic -->
 							<md-tab label="Edit">
 								<md-content class="md-padding">
 									<form ng-submit="createTopic()">
 										<div class="form-group" layout="column">
+											<!-- Topic title -->
 											<md-input-container>
 												<label>Class Title</label>
 												<input type="text" class="topic-title" ng-model="formData.title" required> 
 											</md-input-container>
+											<!-- Topic content -->
 											<md-input-container>
 												<label>Class Description</label>
 												<textarea elastic class="topic-content" ng-model="formData.content" required> </textarea>

@@ -1,7 +1,5 @@
-//Help from https://scotch.io/tutorials/creating-a-single-page-todo-app-with-node-and-angular
-//Also from http://todomvc.com/examples/angularjs/#/
+// A lot of this code came from my todo app, which borrowed heavily from https://scotch.io/tutorials/creating-a-single-page-todo-app-with-node-and-angular
 
-// server.js
 
 // set up ========================
 var express  = require('express');
@@ -13,8 +11,9 @@ var methodOverride = require('method-override'); // simulate DELETE and PUT (exp
 var path = require('path');
 
 var index = require('./routes/index'); //all the routes
-// configuration =================
 
+// configuring the app =================
+// Heroku app mongo
 mongoose.connect(process.env.MONGOLAB_URI);
 
 var db = mongoose.connection;
@@ -34,25 +33,20 @@ app.use(methodOverride());
 // routes ======================================================================
 
 // api ---------------------------------------------------------------------
-// get all todos
+// get all the topic titles (for the nav bar)
 app.get('/api/topicTitles', index.getTopicTitles);
 
-// create todo and send back all todos after creation
+// create topic and send back the new topic
 app.post('/api/create/topic', index.createTopic);
 
+//Get all the information for one topic
 app.get('/api/topic', index.getTopic)
 
+// update topic
 app.post('/api/update/topic', index.updateTopic)
 
-// // toggle complete status of todo
-// app.post('/api/toggleTodoCompleted', index.toggleTodoCompleted);
-
-// // save an edited todo
-// app.post('/api/saveEditedTodo', index.saveTodo);
-
-// app.post('/api/removeTodo', index.removeTodo);
-
 // application -------------------------------------------------------------
+// render index.html when we navigate 
 app.get('*', index.home);
 
 // listen (start app with node server.js) ======================================
