@@ -43,8 +43,11 @@ div:focus {
 	width: 25vw;
 }
 
-span {
+md-subheader {
 	width: 100%;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /*html                    { overflow-y:scroll; }
