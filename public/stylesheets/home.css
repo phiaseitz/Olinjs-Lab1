@@ -3,6 +3,14 @@ h2 {
 	margin: 3px;
 }
 
+md-autocomplete {
+	width: 100%;
+}
+
+.md-red {
+	margin: 20px;
+}
+
 .md-list-item-text {
 	margin: 0px;
 	padding: 0px;

@@ -47,18 +47,21 @@
 							  </md-not-found>
 							</md-autocomplete>
 						</md-list-item>
-
 						<md-list-item>
 							<div class="md-list-item-text create-new-todo " ng-click="showAddTopicForm()">
 								<md-subheader class=md-primary>Create a new class page</md-subheader>
 							</div>  
 						</md-list-item>
-
-						<md-list-item ng-repeat="topic in topicslist">
-							<div class="md-list-item-text" ng-click="getTopic(topic,'navbar')" >
-								<md-subheader ng-class="{'md-accent': topic._id == currentTopic._id}">{{topic.title}}</md-subheader>
-							</div>
-						</md-list-item>
+						<md-divider ></md-divider>
+						<div class = "classes-list" ng-repeat="topic in topicslist">
+							<md-list-item >
+								<div class="md-list-item-text" ng-click="getTopic(topic,'navbar')" >
+									<md-subheader ng-class="{'md-accent': topic._id == currentTopic._id}">{{topic.title}}</md-subheader>
+								</div>
+							</md-list-item>
+							<md-divider ></md-divider>
+						</div>
+						
 					</md-list>
 				</div>
 
@@ -75,13 +78,13 @@
 									<form ng-submit="updateTopic()">
 										<div class="form-group" layout="column">
 											<md-input-container>
-								        <label>Class Title</label>
-								        <input type="text" class="topic-title" value=currentTopic.title ng-model="currentTopic.title" required> 
-								      </md-input-container>
-								      <md-input-container>
-								      	<label>Class Content</label>
-								      	<textarea elastic class="topic-content" value=currentTopic.content ng-model="currentTopic.content" required> </textarea>
-								      </md-input-container>
+										        <label>Class Title</label>
+										        <input type="text" class="topic-title" value=currentTopic.title ng-model="currentTopic.title" required>
+										    </md-input-container>
+								      		<md-input-container>
+								      			<label>Class Content</label>
+								      			<textarea elastic class="topic-content" value=currentTopic.content ng-model="currentTopic.content" required> </textarea>
+								      		</md-input-container>
 											<md-button type="submit">Save</md-button>
 										</div>
 									</form>
@@ -101,8 +104,14 @@
 								<md-content class="md-padding">
 									<form ng-submit="createTopic()">
 										<div class="form-group" layout="column">
-											<input type="text" class="topic-title" placeholder="Class Title" ng-model="formData.title" required> 
-											<textarea elastic class="topic-content" placeholder="Class Description" ng-model="formData.content" required> </textarea>
+											<md-input-container>
+												<label>Class Title</label>
+												<input type="text" class="topic-title" ng-model="formData.title" required> 
+											</md-input-container>
+											<md-input-container>
+												<label>Class Description</label>
+												<textarea elastic class="topic-content" ng-model="formData.content" required> </textarea>
+											</md-input-container>
 											<md-button type="submit">Create Topic</md-button>
 										</div>
 									</form>
