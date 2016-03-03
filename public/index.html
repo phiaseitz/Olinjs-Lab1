@@ -1,0 +1,123 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<htmls>
+<head>
+	<!-- Angulars Material CSS now available via Google CDN; version 0.6 used here -->
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
+	<!-- My own stylesheet -->
+	<link rel="stylesheet" type="text/css" href="./stylesheets/home.css">
+	<!-- Angular Material Dependencies -->
+	<script src="//cdn.jsdelivr.net/hammerjs/2.0.4/hammer.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.js"></script>
+
+	<!-- Angular Material Javascript now available via Google CDN; version 0.6 used here -->
+	<script src="//ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.js"></script>
+	<script type="text/javascript" src="./javascripts/core.js"></script>
+	<title>Olin Classes Wiki</title>
+</head>
+
+<body>
+	<div ng-app="wikiApp">
+		<div ng-controller="AppCtrl"  class="md-red">
+
+			<h1>Classes At Olin</h1>
+
+			<div id="content" layout="row">
+				<!-- Topic Nav Bar -->
+				<div flex id="topic-sidebar">
+					<md-list layout="column">
+						<md-list-item>
+							<md-autocomplete 
+								md-selected-item="search.selectedTopic" 
+								md-search-text="search.searchText" 
+								md-items="topic in getMatches(search.searchText)" 
+								md-item-text="topic.title"
+								md-selected-item-change = "getTopic(topic, 'search')"
+								md-floating-label="Search for a class..."
+							>
+							  <md-item-template>
+							    <md-subheader md-highlight-text="searchText">{{topic.title}}</md-subheader>
+							  </md-item-template>
+							  <md-not-found>
+							    No matches found.
+							  </md-not-found>
+							</md-autocomplete>
+						</md-list-item>
+
+						<md-list-item>
+							<div class="md-list-item-text create-new-todo " ng-click="showAddTopicForm()">
+								<md-subheader class=md-primary>Create a new class page</md-subheader>
+							</div>  
+						</md-list-item>
+
+						<md-list-item ng-repeat="topic in topicslist">
+							<div class="md-list-item-text" ng-click="getTopic(topic,'navbar')" >
+								<md-subheader ng-class="{'md-accent': topic._id == currentTopic._id}">{{topic.title}}</md-subheader>
+							</div>
+						</md-list-item>
+					</md-list>
+				</div>
+
+				<div flex id="topic-content">
+					<div id="page-content" class="existing-topic" ng-if="currentTopic._id">
+						<md-tabs md-dynamic-height md-border-bottom>
+							<md-tab label="View">
+								<md-content class="md-padding">
+									<h1 class="topic-title" >{{currentTopic.title}}</h1>
+									<p class="topic-content" >{{currentTopic.content}}</p>
+							</md-tab>
+							<md-tab label="Edit">
+								<md-content class="md-padding">
+									<form ng-submit="updateTopic()">
+										<div class="form-group" layout="column">
+											<md-input-container>
+								        <label>Class Title</label>
+								        <input type="text" class="topic-title" value=currentTopic.title ng-model="currentTopic.title" required> 
+								      </md-input-container>
+								      <md-input-container>
+								      	<label>Class Content</label>
+								      	<textarea elastic class="topic-content" value=currentTopic.content ng-model="currentTopic.content" required> </textarea>
+								      </md-input-container>
+											<md-button type="submit">Save</md-button>
+										</div>
+									</form>
+								</md-content>
+							</md-tab>
+						</md-tabs>
+					</div>
+
+					<div flex id="page-content" class="create-topic" ng-if="creatingTopic">
+						<md-tabs md-selected="1" md-dynamic-height md-border-bottom>
+							<md-tab label="Preview">
+								<md-content class="md-padding">
+									<h1 class="topic-title">{{formData.title}}</h1>
+									<p class="topic-content">{{formData.content}}</p>
+							</md-tab>
+							<md-tab label="Edit">
+								<md-content class="md-padding">
+									<form ng-submit="createTopic()">
+										<div class="form-group" layout="column">
+											<input type="text" class="topic-title" placeholder="Class Title" ng-model="formData.title" required> 
+											<textarea elastic class="topic-content" placeholder="Class Description" ng-model="formData.content" required> </textarea>
+											<md-button type="submit">Create Topic</md-button>
+										</div>
+									</form>
+									
+								</md-content>
+							</md-tab>
+						</md-tabs>
+					</div>
+				</div>
+				
+			</div>         
+
+		</div>
+	</div>
+	  
+</body>
+
+</html>

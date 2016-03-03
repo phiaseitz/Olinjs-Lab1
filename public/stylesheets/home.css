@@ -1,0 +1,76 @@
+h2 {
+	font-size: 20px;
+	margin: 3px;
+}
+
+.md-list-item-text {
+	margin: 0px;
+	padding: 0px;
+}
+
+.topic-title {
+	font-size: 30px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.create-new-todo {
+	/*color: blue;*/
+}
+
+md-list-item {
+	margin: 0px;
+}
+
+.md-list-item-text {
+	margin: 10px;
+}
+
+div:focus {
+    outline: none;
+}
+
+/*html                    { overflow-y:scroll; }
+
+body                    { padding:50px; }
+
+
+.strike {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.todoTitle {
+	margin-bottom: 0px;
+}
+.subtitle {
+	font-style: italic;
+}
+
+.large-input {
+	width: 100%
+}
+
+.row {
+	margin: 10px;
+	padding: 10px;
+	outline-color: black;
+	outline-style: solid;
+	outline-width: 1px;
+	width: 100%
+	display: inline-block;
+}
+
+.destroy {
+    float: right;
+    margin-top: -0.6em;
+    display:inline;
+    padding: 0;
+}
+
+*/

@@ -1,0 +1,24 @@
+{
+  "name": "Wiki",
+  "version": "0.0.0",
+  "description": "Creating a wiki",
+  "main": "server.js",
+  "author": "",
+  "dependencies": {
+    "body-parser": "~1.5.2",
+    "express": "~4.7.2",
+    "install": "^0.4.4",
+    "jquery": "^2.2.0",
+    "method-override": "~2.1.2",
+    "mongoose": "^4.4.5",
+    "morgan": "~1.2.2",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "license": "ISC"
+}
