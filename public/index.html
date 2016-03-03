@@ -40,7 +40,7 @@
 								md-floating-label="Search for a class..."
 							>
 							  <md-item-template>
-							    <h2 md-highlight-text="searchText">{{topic.title}}</h2>
+							    <md-subheader md-highlight-text="searchText">{{topic.title}}</md-subheader>
 							  </md-item-template>
 							  <md-not-found>
 							    No matches found.
@@ -56,7 +56,7 @@
 						<div class = "classes-list" ng-repeat="topic in topicslist">
 							<md-list-item >
 								<div class="md-list-item-text" ng-click="getTopic(topic,'navbar')" >
-									<h2 ng-class="{'md-accent': topic._id == currentTopic._id}">{{topic.title}}</h2>
+									<md-subheader ng-class="{'md-accent': topic._id == currentTopic._id}">{{topic.title}}</md-subheader>
 								</div>
 							</md-list-item>
 							<md-divider ></md-divider>
