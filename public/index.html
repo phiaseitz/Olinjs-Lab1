@@ -56,7 +56,7 @@
 						<div class = "classes-list" ng-repeat="topic in topicslist">
 							<md-list-item >
 								<div class="md-list-item-text" ng-click="getTopic(topic,'navbar')" >
-									<md-subheader class="md-no-sticky" ng-class="{'md-accent': topic._id == currentTopic._id}">{{topic.title}}</md-subheader>
+									<md-subheader ng-class="{'md-accent': topic._id == currentTopic._id}">{{topic.title}}</md-subheader>
 								</div>
 							</md-list-item>
 							<md-divider ></md-divider>

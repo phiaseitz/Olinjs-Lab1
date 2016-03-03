@@ -43,6 +43,10 @@ div:focus {
 	width: 25vw;
 }
 
+md-subheader {
+	width: 100%;
+}
+
 /*html                    { overflow-y:scroll; }
 
 body                    { padding:50px; }
