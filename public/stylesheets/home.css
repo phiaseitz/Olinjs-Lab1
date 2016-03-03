@@ -39,6 +39,10 @@ div:focus {
     outline: none;
 }
 
+#topic-sidebar{
+	width: 25vw;
+}
+
 /*html                    { overflow-y:scroll; }
 
 body                    { padding:50px; }
