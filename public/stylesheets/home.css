@@ -1,21 +1,16 @@
-h2 {
-	font-size: 20px;
-	margin: 3px;
-}
+/*This is my css stuff. Mostly, I just used the angular material css. */
 
+/*Make the search bar as wide as it can be*/
 md-autocomplete {
 	width: 100%;
 }
 
+/*The entire app gets a margin!*/
 .md-red {
 	margin: 20px;
 }
 
-.md-list-item-text {
-	margin: 0px;
-	padding: 0px;
-}
-
+/*Topic title styling, for both the display and form*/
 .topic-title {
 	font-size: 30px;
 	font-weight: bold;
@@ -23,73 +18,30 @@ md-autocomplete {
 	margin-bottom: 10px;
 }
 
-.create-new-todo {
-	/*color: blue;*/
-}
-
+/*No margins for list items themselves*/
 md-list-item {
 	margin: 0px;
 }
-
+/*Give text a margin of 10px on a list item*/
 .md-list-item-text {
 	margin: 10px;
+	padding: 0px;
 }
 
+/*Remove outline on focus*/
 div:focus {
     outline: none;
 }
 
+/*Set the width of the nav bar*/
 #topic-sidebar{
 	width: 25vw;
 }
 
+/*Trying to handle overflow of the sidebar. Unfortunately, I wasn't able to figure this out for a string with very long spaces*/
 span {
 	width: 100%;
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
-/*html                    { overflow-y:scroll; }
-
-body                    { padding:50px; }
-
-
-.strike {
-    text-decoration: line-through;
-    color: gray;
-}
-
-.text-center {
-	text-align: center;
-}
-
-.todoTitle {
-	margin-bottom: 0px;
-}
-.subtitle {
-	font-style: italic;
-}
-
-.large-input {
-	width: 100%
-}
-
-.row {
-	margin: 10px;
-	padding: 10px;
-	outline-color: black;
-	outline-style: solid;
-	outline-width: 1px;
-	width: 100%
-	display: inline-block;
-}
-
-.destroy {
-    float: right;
-    margin-top: -0.6em;
-    display:inline;
-    padding: 0;
-}
-
-*/

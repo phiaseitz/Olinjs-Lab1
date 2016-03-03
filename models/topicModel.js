@@ -1,3 +1,4 @@
+// This is the model for my topic. It currently has a title and content components. 
 var mongoose = require('mongoose');
 
 var Topic = mongoose.Schema({

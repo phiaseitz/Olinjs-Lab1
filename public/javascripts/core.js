@@ -1,5 +1,7 @@
+// Create the controller. This is what controls the app. 
 var wiki = angular.module('wikiApp', ['ngMaterial'])
 .controller('AppCtrl', function ($scope, $log,  $http) {
+    // Define basecase variables
     $scope.formData = {};
     $scope.search = {};
     $scope.currentTopic = {};
@@ -8,7 +10,7 @@ var wiki = angular.module('wikiApp', ['ngMaterial'])
     $scope.createTopicShowEdit = 1;
     $scope.initialHeight = 0;
 
-    // when landing on the page, get all todos and show them
+    // when landing on the page, get all topic titles and show them
     $http.get('/api/topicTitles') 
         .success(function(data) {
             $scope.topicslist = data.sort(sortTopcis())
@@ -19,16 +21,20 @@ var wiki = angular.module('wikiApp', ['ngMaterial'])
         });
 
     
-    // when submitting the add form, send the text to the node API
+    // When we create a new topic, we add the new topic to the list of current topics, and resort the list
     $scope.createTopic = function() {
         $http.post('/api/create/topic', {topic: $scope.formData})
             .success(function(data) {
-                $scope.formData = {}; // clear the form so our user is ready to enter another
-                // when landing on the page, get all todos and show them     
+                $scope.formData = {}; // clear the form data
+                
+                //add the new topic to the current topic list 
                 var currentTopicList = $scope.topicslist;
                 currentTopicList.push(data);
+                // reset the topic list
                 $scope.topicslist = currentTopicList.sort(sortTopcis()); 
+                // show the current topic
                 $scope.currentTopic = data;
+                // now we are no longer creating a topic
                 $scope.creatingTopic = false;
           
             })
@@ -36,7 +42,7 @@ var wiki = angular.module('wikiApp', ['ngMaterial'])
                 console.log('Error: ' + data);
             });
     };
-
+    // Get the formation for a topoc
     $scope.getTopic = function(topic,origin) {
       //Because sometimes we clear the search bar, we only
       //want to do this if we are not searching or searching and
@@ -44,9 +50,12 @@ var wiki = angular.module('wikiApp', ['ngMaterial'])
       if (!(origin==='search'&& !$scope.search.selectedTopic)){
         $http.get('api/topic', {params: topic})
             .success(function(data) {
+                // The set the topic we are viewing
                 $scope.currentTopic = data; 
+                // we are no lnger creating/editing a topic. 
                 $scope.creatingTopic = false; 
                 $scope.editingTopic = false;
+                // clear the search form
                 $scope.search={};        
             })
             .error(function(data) {
@@ -55,16 +64,18 @@ var wiki = angular.module('wikiApp', ['ngMaterial'])
       }
     };
 
+    // after we click on the create new topic "button", show the add topic form
     $scope.showAddTopicForm = function(){
         $scope.creatingTopic = true;
         $scope.currentTopic = {};
     };
 
+    // Save a topic that we have edited
     $scope.updateTopic = function() {
         console.log("topic edited", $scope.currentTopic);
         $http.post('/api/update/topic', {topic: $scope.currentTopic})
             .success(function(data){
-                console.log(data);
+                // we are no longer editing, and resort the topics. 
                 $scope.editingTopic = false;
                 $scope.topicslist = data.sort(sortTopcis());
             })
@@ -73,17 +84,16 @@ var wiki = angular.module('wikiApp', ['ngMaterial'])
             });
     }
 
-  $scope.searchTextChange = function (text) {
-      $log.info('Text changed to ' + text);
-    }
-
-  $scope.getMatches = function (text) {
+    //Get the matches for the current search query
+    $scope.getMatches = function (text) {
       var matches = $scope.topicslist.filter(function (topic) {
+        // Only return titles where the search query is a substring of the title
         return (topic.title.toLowerCase().indexOf(text.toLowerCase()) > -1);
       });
       return matches;
     }
 })
+// Se themes
 .config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('indigo')
@@ -116,7 +126,7 @@ var wiki = angular.module('wikiApp', ['ngMaterial'])
         };
     }
 ]);
-
+//This is the sort topics function that sorts topics alphabetically ignoring case of the object. 
 function sortTopcis() {
   return function(t1, t2) {
     if (t1.title.toLowerCase() < t2.title.toLowerCase()){
