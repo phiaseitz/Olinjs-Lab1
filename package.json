@@ -2,7 +2,7 @@
   "name": "Wiki",
   "version": "0.0.0",
   "description": "Creating a wiki",
-  "main": "server.js",
+  "main": "app.js",
   "author": "",
   "dependencies": {
     "body-parser": "~1.5.2",
