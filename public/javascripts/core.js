@@ -1,3 +1,24 @@
+// Awesome work on execution, clarity of code and documentation. Please look at a different approach that you might take 
+// in structuring your frontend to be more scalable with more controllers:
+
+// var wiki = angular.module('myWiki', ['ngMaterial', 'ngRoute']);
+
+// A way to make your code more modular in more complex application is to create this route handler that allows you
+// to use different controllers on different routes according to your needs. To do so you need to require "ngRoute" in your 
+// modulus, as shown in line 4, above. Once you've done this, you can initialize a routeProvider that handles the different
+// cases, as shown below:
+
+// app.config(function ($routeProvider, $locationProvider) {
+//   $routeProvider.when("/", {
+//       templateUrl : "../wiki.html",
+//       controller: "mainController"
+//     });
+// });
+
+// To add a final note on that - I would like it if you were able to not have all of your "views" code in index.html. As simple
+// ng-view div could be present at index.html that is ready to handle all incoming views by a suite of html files under a views 
+// dir in your public dir. Let me know if you have any questions on this and I am happy to explain :)
+
 // Create the controller. This is what controls the app. 
 var wiki = angular.module('wikiApp', ['ngMaterial'])
 .controller('AppCtrl', function ($scope, $log,  $http) {
@@ -126,6 +147,8 @@ var wiki = angular.module('wikiApp', ['ngMaterial'])
         };
     }
 ]);
+
+// Nice, simple and elegant.
 //This is the sort topics function that sorts topics alphabetically ignoring case of the object. 
 function sortTopcis() {
   return function(t1, t2) {
