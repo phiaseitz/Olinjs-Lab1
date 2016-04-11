@@ -14,7 +14,7 @@ var index = require('./routes/index'); //all the routes
 
 // configuring the app =================
 // Heroku app mongo
-mongoose.connect(process.env.MONGOLAB_URI);
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/test'); // adding so I can run locally
 
 var db = mongoose.connection;
 
@@ -46,10 +46,11 @@ app.get('/api/topic', index.getTopic)
 app.post('/api/update/topic', index.updateTopic)
 
 // application -------------------------------------------------------------
-// render index.html when we navigate 
+// render index.html when we navigate
 app.get('*', index.home);
 
 // listen (start app with node server.js) ======================================
 PORT = process.env.PORT || 3000;
-app.listen(PORT);
-console.log("App listening on port " + PORT);
+app.listen(PORT, function() {
+	console.log("App listening on port " + PORT); // this way you know your app is actually listening when you read the console.log :)
+});
