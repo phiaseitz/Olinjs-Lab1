@@ -13,8 +13,15 @@ var path = require('path');
 var index = require('./routes/index'); //all the routes
 
 // configuring the app =================
-// Heroku app mongo
-mongoose.connect(process.env.MONGOLAB_URI);
+
+// Heroku app mongo 
+// Sophia, please note that this fails locally - I have included two lines below that handle
+// production (remote) and test (local) cases for connecting to MONGO :)
+// mongoose.connect(process.env.MONGOLAB_URI);
+
+// defines mongoURI and connects to it, depending on connection
+var mongoURI = process.env.MONGOLAB_URI || "mongodb://localhost/test";
+mongoose.connect(mongoURI);
 
 var db = mongoose.connection;
 
@@ -30,6 +37,7 @@ app.use(bodyParser.json());                                     // parse applica
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
 
+// Love the commenting
 // routes ======================================================================
 
 // api ---------------------------------------------------------------------
